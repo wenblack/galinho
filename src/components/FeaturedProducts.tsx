@@ -42,35 +42,35 @@ const products: Product[] = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-10 bg-background">
+    <section className="py-6 sm:py-10 bg-background">
       <div className="container mx-auto px-4">
-        <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6 uppercase">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-4 sm:mb-6 uppercase">
           Produtos em Destaque
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {products.map((product) => (
             <div
               key={product.id}
               className="bg-card rounded-lg border border-border overflow-hidden group hover:shadow-lg transition-shadow"
             >
-              <div className="aspect-square bg-muted flex items-center justify-center p-4 overflow-hidden">
+              <div className="aspect-square bg-muted flex items-center justify-center p-3 sm:p-4 overflow-hidden">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <div className="p-3 md:p-4">
-                <h3 className="text-xs md:text-sm font-semibold text-foreground line-clamp-1">
+              <div className="p-2.5 sm:p-3 md:p-4">
+                <h3 className="text-xs sm:text-sm font-semibold text-foreground line-clamp-1">
                   {product.name}
                 </h3>
-                <p className="text-[11px] md:text-xs text-muted-foreground mt-1 line-clamp-2">
+                <p className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground mt-1 line-clamp-2">
                   {product.description}
                 </p>
-                <p className="text-sm md:text-base font-bold text-primary mt-2">
+                <p className="text-sm md:text-base font-bold text-primary mt-1.5 sm:mt-2">
                   {product.price}
                 </p>
-                <button className="w-full mt-3 bg-primary text-primary-foreground text-xs md:text-sm font-semibold py-2 rounded hover:bg-primary/90 transition-colors uppercase">
+                <button className="w-full mt-2 sm:mt-3 bg-primary text-primary-foreground text-xs sm:text-sm font-semibold py-1.5 sm:py-2 rounded hover:bg-primary/90 transition-colors uppercase">
                   Veja
                 </button>
               </div>
