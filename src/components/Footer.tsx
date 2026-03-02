@@ -1,0 +1,53 @@
+import { Facebook, Instagram, Youtube } from "lucide-react";
+
+const Footer = () => {
+  return (
+    <footer className="footer-gradient text-primary-foreground">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Social */}
+          <div>
+            <h3 className="font-bold text-sm uppercase mb-3">Redes Sociais</h3>
+            <div className="flex gap-3">
+              <a href="#" className="hover:opacity-80 transition-opacity">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="hover:opacity-80 transition-opacity">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="hover:opacity-80 transition-opacity">
+                <Youtube className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Links */}
+          <div>
+            <h3 className="font-bold text-sm uppercase mb-3">Institucional</h3>
+            <ul className="space-y-1.5 text-sm opacity-80">
+              <li><a href="#" className="hover:underline">Política de Privacidade</a></li>
+              <li><a href="#" className="hover:underline">Trocas e Devoluções</a></li>
+              <li><a href="#" className="hover:underline">Termos e Condições</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-bold text-sm uppercase mb-3">Atendimento</h3>
+            <ul className="space-y-1.5 text-sm opacity-80">
+              <li>Seg a Sex: 8h às 18h</li>
+              <li>(11) 4002-8922</li>
+              <li>contato@galinho.com.br</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-primary-foreground/20 mt-8 pt-4 text-center text-xs opacity-60">
+          © 2026 Galinho - Todos os direitos reservados
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
