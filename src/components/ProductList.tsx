@@ -32,7 +32,7 @@ export const ProductList = ({
 
   if (isLoading) {
     return (
-      <div className={`grid grid-cols-${columns} gap-4`}>
+      <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4`}>
         {Array(4)
           .fill(null)
           .map((_, i) => (
@@ -70,7 +70,9 @@ export const ProductList = ({
     }[columns] || "grid-cols-4";
 
   const containerClass =
-    layout === "grid" ? `grid ${gridColsClass} gap-4` : "flex flex-col gap-4";
+    layout === "grid"
+      ? `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4`
+      : "flex flex-col gap-4";
 
   return (
     <div className={containerClass}>
