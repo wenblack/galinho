@@ -1,0 +1,67 @@
+import productCompressor from "@/assets/product-compressor.png";
+import productPurifier from "@/assets/product-purifier.png";
+import { Product } from "@/types/product";
+
+// Mock data - Replace with API call later
+export const mockProducts: Product[] = [
+  {
+    id: 1,
+    name: "QR-0337 - Compressor",
+    description: "Scroll Copeland 36.000 BTU R-410A / R-32",
+    price: "R$ 4.500,00",
+    image: productCompressor,
+    category: "Compressores",
+    rating: 4.5,
+    inStock: true,
+  },
+  {
+    id: 2,
+    name: "QR-0398 - Compressor",
+    description: "Rotativo 18.000 BTU/s R-410A",
+    price: "R$ 2.800,00",
+    image: productCompressor,
+    category: "Compressores",
+    rating: 4.2,
+    inStock: true,
+  },
+  {
+    id: 3,
+    name: "QR-0725 - Compressor",
+    description: "Hermético Embraco 1/4+ HP R-134a",
+    price: "R$ 1.250,00",
+    image: productCompressor,
+    category: "Compressores",
+    rating: 4.8,
+    inStock: true,
+  },
+  {
+    id: 4,
+    name: "Purificador de Água",
+    description: "Purificador Natural IBBL FR600",
+    price: "R$ 890,00",
+    image: productPurifier,
+    category: "Filtros e Purificadores",
+    rating: 4.3,
+    inStock: true,
+  },
+  {
+    id: 5,
+    name: "QR-0445 - Compressor",
+    description: "Hermético 1/2 HP R-22",
+    price: "R$ 1.850,00",
+    image: productCompressor,
+    category: "Compressores",
+    rating: 4.6,
+    inStock: false,
+  },
+  {
+    id: 6,
+    name: "QR-0556 - Compressor",
+    description: "Scrolle 60.000 BTU R-410A",
+    price: "R$ 6.200,00",
+    image: productCompressor,
+    category: "Compressores",
+    rating: 4.7,
+    inStock: true,
+  },
+];
