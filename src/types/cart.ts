@@ -13,19 +13,21 @@ export interface WishlistItem {
 export interface CartContextType {
   cart: CartItem[];
   wishlist: WishlistItem[];
-  
+
   // Cart methods
   addToCart: (productId: number) => void;
   removeFromCart: (productId: number) => void;
   clearCart: () => void;
   incrementCartItemClicks: (productId: number) => void;
-  
+  decrementCartItemClicks: (productId: number) => void;
+
   // Wishlist methods
   addToWishlist: (productId: number) => void;
   removeFromWishlist: (productId: number) => void;
   clearWishlist: () => void;
   incrementWishlistItemClicks: (productId: number) => void;
-  
+  decrementWishlistItemClicks: (productId: number) => void;
+
   // Utility methods
   isInCart: (productId: number) => boolean;
   isInWishlist: (productId: number) => boolean;

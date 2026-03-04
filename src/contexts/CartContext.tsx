@@ -53,7 +53,7 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
         return prevCart.map((item) =>
           item.id === productId
             ? { ...item, clickCount: item.clickCount + 1 }
-            : item
+            : item,
         );
       }
       return [
@@ -68,9 +68,7 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
   };
 
   const removeFromCart = (productId: number) => {
-    setCart((prevCart) =>
-      prevCart.filter((item) => item.id !== productId)
-    );
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
   const clearCart = () => {
@@ -82,8 +80,20 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
       prevCart.map((item) =>
         item.id === productId
           ? { ...item, clickCount: item.clickCount + 1 }
-          : item
-      )
+          : item,
+      ),
+    );
+  };
+
+  const decrementCartItemClicks = (productId: number) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === productId
+            ? { ...item, clickCount: Math.max(0, item.clickCount - 1) }
+            : item,
+        )
+        .filter((item) => item.clickCount > 0),
     );
   };
 
@@ -95,7 +105,7 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
         return prevWishlist.map((item) =>
           item.id === productId
             ? { ...item, clickCount: item.clickCount + 1 }
-            : item
+            : item,
         );
       }
       return [
@@ -111,7 +121,7 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
 
   const removeFromWishlist = (productId: number) => {
     setWishlist((prevWishlist) =>
-      prevWishlist.filter((item) => item.id !== productId)
+      prevWishlist.filter((item) => item.id !== productId),
     );
   };
 
@@ -124,8 +134,20 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
       prevWishlist.map((item) =>
         item.id === productId
           ? { ...item, clickCount: item.clickCount + 1 }
-          : item
-      )
+          : item,
+      ),
+    );
+  };
+
+  const decrementWishlistItemClicks = (productId: number) => {
+    setWishlist((prevWishlist) =>
+      prevWishlist
+        .map((item) =>
+          item.id === productId
+            ? { ...item, clickCount: Math.max(0, item.clickCount - 1) }
+            : item,
+        )
+        .filter((item) => item.clickCount > 0),
     );
   };
 
@@ -155,19 +177,19 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
     removeFromCart,
     clearCart,
     incrementCartItemClicks,
+    decrementCartItemClicks,
     addToWishlist,
     removeFromWishlist,
     clearWishlist,
     incrementWishlistItemClicks,
+    decrementWishlistItemClicks,
     isInCart,
     isInWishlist,
     getCartItemClickCount,
     getWishlistItemClickCount,
   };
 
-  return (
-    <CartContext.Provider value={value}>{children}</CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 
 export const useCart = (): CartContextType => {
