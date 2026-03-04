@@ -106,13 +106,13 @@ const Header = () => {
               <span className="text-sm hidden md:block">Entrar</span>
             </a>
             <a
-              href="#"
+              href="/wishlist"
               className="relative hover:opacity-80 transition-opacity hidden sm:block"
             >
               <Heart className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="/cart"
               className="relative hover:opacity-80 transition-opacity"
             >
               <ShoppingCart className="w-5 h-5" />

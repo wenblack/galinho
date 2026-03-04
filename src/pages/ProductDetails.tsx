@@ -8,6 +8,8 @@ import { ArrowLeft, ShoppingCart, Heart } from "lucide-react";
 import { mockProducts } from "@/data/products";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 const ProductDetails = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -15,7 +17,15 @@ const ProductDetails = () => {
   const location = useLocation();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
+
+  // context hooks for cart + wishlist
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } =
+    useCart();
+
+  const { toast } = useToast();
+
+  // derive favorite status from wishlist context instead of local state
+  const isFavorite = product ? isInWishlist(product.id) : false;
 
   useEffect(() => {
     // Get product from location state or fetch it
@@ -58,13 +68,34 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
-    // Implement cart logic here
-    console.log("Produto adicionado ao carrinho:", product);
-    // You can show a toast notification
+    if (!product) return;
+
+    addToCart(product.id);
+    toast({
+      title: "Carrinho",
+      description: `${product.name} adicionado ao carrinho.`,
+      duration: 3000,
+    });
   };
 
   const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+    if (!product) return;
+
+    if (isFavorite) {
+      removeFromWishlist(product.id);
+      toast({
+        title: "Wishlist",
+        description: `${product.name} removido dos favoritos.`,
+        duration: 3000,
+      });
+    } else {
+      addToWishlist(product.id);
+      toast({
+        title: "Wishlist",
+        description: `${product.name} adicionado aos favoritos.`,
+        duration: 3000,
+      });
+    }
   };
 
   return (
