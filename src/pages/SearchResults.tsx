@@ -76,9 +76,9 @@ const SearchResults = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8">
           {/* Filters Sidebar */}
-          <aside className="w-64 shrink-0">
+          <aside className="w-full md:w-64 shrink-0">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Filtros</CardTitle>
