@@ -1,11 +1,32 @@
 import { useState } from "react";
-import { Search, ShoppingCart, User, Phone, MapPin, Heart, Menu, X } from "lucide-react";
+import {
+  Search,
+  ShoppingCart,
+  User,
+  Phone,
+  MapPin,
+  Heart,
+  Menu,
+  X,
+} from "lucide-react";
 import logo from "@/assets/galinho-logo.png";
+import { useCart } from "@/contexts/CartContext";
 
-const navItems = ["Ar Condicionado", "Compressores", "Peças e Acessórios", "Purificadores", "Ferramentas", "Ofertas"];
+const navItems = [
+  "Ar Condicionado",
+  "Compressores",
+  "Peças e Acessórios",
+  "Purificadores",
+  "Ferramentas",
+  "Ofertas",
+];
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cart } = useCart();
+
+  // Calculate total items in cart (sum of all clickCounts)
+  const totalCartItems = cart.reduce((sum, item) => sum + item.clickCount, 0);
 
   return (
     <header className="w-full">
@@ -23,8 +44,12 @@ const Header = () => {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <a href="#" className="hover:underline">Central de Atendimento</a>
-            <a href="#" className="hover:underline hidden sm:inline">Meus Pedidos</a>
+            <a href="#" className="hover:underline">
+              Central de Atendimento
+            </a>
+            <a href="#" className="hover:underline hidden sm:inline">
+              Meus Pedidos
+            </a>
           </div>
         </div>
       </div>
@@ -38,13 +63,23 @@ const Header = () => {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
 
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 shrink-0">
-            <img src={logo} alt="Galinho" className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-primary-foreground" />
-            <span className="text-xl sm:text-2xl font-bold tracking-tight hidden sm:block">GALINHO</span>
+            <img
+              src={logo}
+              alt="Galinho"
+              className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-primary-foreground"
+            />
+            <span className="text-xl sm:text-2xl font-bold tracking-tight hidden sm:block">
+              GALINHO
+            </span>
           </a>
 
           {/* Search - hidden on mobile, shown on sm+ */}
@@ -63,17 +98,26 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <a href="#" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+            <a
+              href="#"
+              className="flex items-center gap-1 hover:opacity-80 transition-opacity"
+            >
               <User className="w-5 h-5" />
               <span className="text-sm hidden md:block">Entrar</span>
             </a>
-            <a href="#" className="relative hover:opacity-80 transition-opacity hidden sm:block">
+            <a
+              href="#"
+              className="relative hover:opacity-80 transition-opacity hidden sm:block"
+            >
               <Heart className="w-5 h-5" />
             </a>
-            <a href="#" className="relative hover:opacity-80 transition-opacity">
+            <a
+              href="#"
+              className="relative hover:opacity-80 transition-opacity"
+            >
               <ShoppingCart className="w-5 h-5" />
               <span className="absolute -top-1.5 -right-1.5 bg-accent text-accent-foreground text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                0
+                {totalCartItems}
               </span>
             </a>
           </div>
@@ -100,7 +144,10 @@ const Header = () => {
           <ul className="flex items-center gap-6 py-2">
             {navItems.map((item) => (
               <li key={item}>
-                <a href="#" className="hover:opacity-80 transition-opacity font-medium">
+                <a
+                  href="#"
+                  className="hover:opacity-80 transition-opacity font-medium"
+                >
                   {item}
                 </a>
               </li>

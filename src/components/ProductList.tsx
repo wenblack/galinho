@@ -9,6 +9,8 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 export interface ProductListProps {
   products: Product[];
@@ -31,6 +33,8 @@ export const ProductList = ({
 }: ProductListProps) => {
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { addToCart, cart } = useCart();
+  const { toast } = useToast();
 
   if (isLoading) {
     return (
@@ -136,8 +140,15 @@ export const ProductList = ({
                 disabled={!product.inStock}
                 onClick={(e) => {
                   e.stopPropagation();
-                  // Add to cart logic here
-                  console.log("Adicionado ao carrinho:", product);
+                  // Add to cart
+                  addToCart(product.id);
+
+                  // Show toast notification
+                  toast({
+                    title: "Sucesso!",
+                    description: "Produto adicionado!",
+                    duration: 3000,
+                  });
                 }}
               >
                 {product.inStock ? "Adicionar" : "Indisponível"}
