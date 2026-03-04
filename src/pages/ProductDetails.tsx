@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,14 @@ import Footer from "@/components/Footer";
 const ProductDetails = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     // Get product from location state or fetch it
-    const locationState = location.state as { product?: Product };
+    const locationState = location.state as { product?: Product } | null;
     if (locationState?.product) {
       setProduct(locationState.product);
     } else {
@@ -27,7 +28,7 @@ const ProductDetails = () => {
       setProduct(mockProducts.find((p) => p.id === Number(productId)) || null);
     }
     setIsLoading(false);
-  }, [productId]);
+  }, [productId, location]);
 
   if (isLoading) {
     return (
