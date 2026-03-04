@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   ShoppingCart,
@@ -23,10 +24,19 @@ const navItems = [
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
   const { cart } = useCart();
 
   // Calculate total items in cart (sum of all clickCounts)
   const totalCartItems = cart.reduce((sum, item) => sum + item.clickCount, 0);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <header className="w-full">
@@ -83,18 +93,26 @@ const Header = () => {
           </a>
 
           {/* Search - hidden on mobile, shown on sm+ */}
-          <div className="hidden sm:flex flex-1 max-w-xl">
+          <form
+            onSubmit={handleSearch}
+            className="hidden sm:flex flex-1 max-w-xl"
+          >
             <div className="relative w-full">
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="O que você está procurando?"
                 className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent"
               />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
                 <Search className="w-5 h-5" />
               </button>
             </div>
-          </div>
+          </form>
 
           {/* Actions */}
           <div className="flex items-center gap-3 sm:gap-4">
@@ -125,16 +143,21 @@ const Header = () => {
 
         {/* Mobile search bar */}
         <div className="sm:hidden container mx-auto px-4 mt-2">
-          <div className="relative">
+          <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="O que você está procurando?"
               className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
               <Search className="w-5 h-5" />
             </button>
-          </div>
+          </form>
         </div>
       </div>
 
