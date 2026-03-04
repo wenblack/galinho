@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +29,7 @@ export const ProductList = ({
   layout = "grid",
   columns = 4,
 }: ProductListProps) => {
+  const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   if (isLoading) {
@@ -59,6 +61,8 @@ export const ProductList = ({
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
     onProductClick?.(product);
+    // Navigate to product details page
+    navigate(`/product/${product.id}`, { state: { product } });
   };
 
   const gridColsClass =
@@ -130,6 +134,11 @@ export const ProductList = ({
                 size="sm"
                 variant={product.inStock ? "default" : "secondary"}
                 disabled={!product.inStock}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Add to cart logic here
+                  console.log("Adicionado ao carrinho:", product);
+                }}
               >
                 {product.inStock ? "Adicionar" : "Indisponível"}
               </Button>
