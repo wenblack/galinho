@@ -7,6 +7,7 @@ export interface Product {
   category?: string;
   rating?: number;
   inStock?: boolean;
+  owner?: string;
 }
 
 export interface ProductResponse {

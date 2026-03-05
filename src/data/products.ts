@@ -13,6 +13,7 @@ export const mockProducts: Product[] = [
     category: "Compressores",
     rating: 4.5,
     inStock: true,
+    owner: "Copeland",
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ export const mockProducts: Product[] = [
     category: "Compressores",
     rating: 4.2,
     inStock: true,
+    owner: "Midea",
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ export const mockProducts: Product[] = [
     category: "Compressores",
     rating: 4.8,
     inStock: true,
+    owner: "Embraco",
   },
   {
     id: 4,
@@ -43,6 +46,7 @@ export const mockProducts: Product[] = [
     category: "Filtros e Purificadores",
     rating: 4.3,
     inStock: true,
+    owner: "IBBL",
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ export const mockProducts: Product[] = [
     category: "Compressores",
     rating: 4.6,
     inStock: false,
+    owner: "Embraco",
   },
   {
     id: 6,
@@ -63,5 +68,6 @@ export const mockProducts: Product[] = [
     category: "Compressores",
     rating: 4.7,
     inStock: true,
+    owner: "Copeland",
   },
 ];

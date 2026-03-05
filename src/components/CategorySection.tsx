@@ -19,7 +19,7 @@ const CategorySection = () => {
           {categories.map((cat) => (
             <a
               key={cat.name}
-              href="#"
+              href={`/category/${encodeURIComponent(cat.name)}`}
               className="bg-card rounded-lg border border-border p-4 flex flex-col items-center gap-3 hover:shadow-md transition-shadow group"
             >
               <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
