@@ -151,6 +151,16 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
     );
   };
 
+  // Transfer wishlist items to cart
+  const moveWishlistToCart = () => {
+    wishlist.forEach((item) => {
+      for (let i = 0; i < item.clickCount; i++) {
+        addToCart(item.id);
+      }
+    });
+    setWishlist([]);
+  };
+
   // Utility methods
   const isInCart = (productId: number) => {
     return cart.some((item) => item.id === productId);
@@ -187,6 +197,7 @@ export const CartContextProvider: React.FC<CartContextProviderProps> = ({
     isInWishlist,
     getCartItemClickCount,
     getWishlistItemClickCount,
+    moveWishlistToCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

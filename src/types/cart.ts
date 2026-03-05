@@ -33,4 +33,7 @@ export interface CartContextType {
   isInWishlist: (productId: number) => boolean;
   getCartItemClickCount: (productId: number) => number;
   getWishlistItemClickCount: (productId: number) => number;
+
+  // Transfer methods
+  moveWishlistToCart: () => void;
 }

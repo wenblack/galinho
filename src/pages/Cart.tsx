@@ -106,12 +106,7 @@ const Cart = () => {
               className="w-full mt-6"
               size="lg"
               onClick={() => {
-                clearCart();
-                toast({
-                  title: "Pedido confirmado!",
-                  description: "Seus produtos foram confirmados com sucesso.",
-                  duration: 3000,
-                });
+                navigate("/order");
               }}
             >
               Confirmar Pedido

@@ -16,6 +16,7 @@ const Wishlist = () => {
     clearWishlist,
     addToWishlist,
     decrementWishlistItemClicks,
+    moveWishlistToCart,
   } = useCart();
   const { toast } = useToast();
 
@@ -104,9 +105,10 @@ const Wishlist = () => {
               className="w-full mt-6"
               size="lg"
               onClick={() => {
-                clearWishlist();
+                moveWishlistToCart();
+                navigate("/cart");
                 toast({
-                  title: "Wishlist confirmada!",
+                  title: "Produtos enviados para o carrinho!",
                   description: "Seus produtos foram confirmados com sucesso.",
                   duration: 3000,
                 });

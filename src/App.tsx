@@ -13,6 +13,7 @@ import Category from "./pages/Category";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account";
+import Order from "./pages/Order";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/order" element={<Order />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
