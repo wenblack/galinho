@@ -107,6 +107,7 @@ const Header = () => {
               />
               <button
                 type="submit"
+                aria-label="Buscar"
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               >
                 <Search className="w-5 h-5" />
@@ -153,6 +154,7 @@ const Header = () => {
             />
             <button
               type="submit"
+              aria-label="Buscar"
               className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             >
               <Search className="w-5 h-5" />
