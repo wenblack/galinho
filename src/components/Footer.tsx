@@ -9,13 +9,13 @@ const Footer = () => {
           <div className="text-center sm:text-left">
             <h3 className="font-bold text-sm uppercase mb-3">Redes Sociais</h3>
             <div className="flex gap-3 justify-center sm:justify-start">
-              <a href="#" className="hover:opacity-80 transition-opacity">
+              <a href="#" aria-label="Facebook" className="hover:opacity-80 transition-opacity">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:opacity-80 transition-opacity">
+              <a href="#" aria-label="Instagram" className="hover:opacity-80 transition-opacity">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:opacity-80 transition-opacity">
+              <a href="#" aria-label="YouTube" className="hover:opacity-80 transition-opacity">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>

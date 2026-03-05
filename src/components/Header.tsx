@@ -126,6 +126,7 @@ const Header = () => {
             </a>
             <a
               href="/wishlist"
+              aria-label="Wishlist"
               className="relative hover:opacity-80 transition-opacity hidden sm:block"
             >
               <Heart className="w-5 h-5" />
