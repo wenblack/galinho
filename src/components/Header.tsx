@@ -248,6 +248,51 @@ const Header = () => {
                 </a>
               </li>
             ))}
+
+            {/* Account options in mobile menu */}
+            <li className="pt-2 mt-2 border-t border-primary-foreground/10">
+              {isAuthenticated ? (
+                <>
+                  <a
+                    href="/account"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4" />
+                    Minha Conta
+                  </a>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setMenuOpen(false);
+                    }}
+                    className="flex items-center gap-2 w-full py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sair
+                  </button>
+                </>
+              ) : (
+                <>
+                  <a
+                    href="/signin"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4" />
+                    Entrar
+                  </a>
+                  <a
+                    href="/signup"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4" />
+                    Criar Conta
+                  </a>
+                </>
+              )}
+            </li>
           </ul>
         </nav>
       )}
