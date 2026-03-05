@@ -8,7 +8,7 @@ const BrandBar = () => {
           {brands.map((brand) => (
             <span
               key={brand}
-              className="text-muted-foreground font-bold text-sm md:text-base tracking-wide opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+              className="text-foreground/50 font-bold text-sm md:text-base tracking-wide hover:text-foreground/80 transition-colors cursor-pointer"
             >
               {brand}
             </span>
