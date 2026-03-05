@@ -20,7 +20,7 @@ const HeroBanner = () => {
           </a>
         </div>
         <div className="flex-1 relative flex justify-center">
-          <button className="absolute top-0 right-2 sm:right-4 md:right-0 text-primary-foreground hover:text-accent transition-colors z-10">
+          <button aria-label="Adicionar aos favoritos" className="absolute top-0 right-2 sm:right-4 md:right-0 text-primary-foreground hover:text-accent transition-colors z-10">
             <Heart className="w-6 h-6 sm:w-7 sm:h-7" />
           </button>
           <img
