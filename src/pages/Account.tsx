@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -22,12 +24,24 @@ import {
   Package,
   Heart,
   ShoppingCart,
+  Edit2,
+  Save,
+  X,
+  MapPin,
 } from "lucide-react";
 
 const Account = () => {
   const navigate = useNavigate();
-  const { user, logout, isAuthenticated, isLoading } = useAuth();
+  const { user, logout, isAuthenticated, isLoading, updateUser } = useAuth();
   const { toast } = useToast();
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editEmail, setEditEmail] = useState("");
+  const [editAddress, setEditAddress] = useState("");
+  const [editErrors, setEditErrors] = useState<{
+    email?: string;
+    address?: string;
+  }>({});
 
   // Wait for auth to finish loading before checking authentication
   React.useEffect(() => {
@@ -48,6 +62,51 @@ const Account = () => {
     navigate("/");
   };
 
+  const handleEditClick = () => {
+    if (user) {
+      setEditEmail(user.email);
+      setEditAddress(user.address || "");
+      setIsEditing(true);
+      setEditErrors({});
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditErrors({});
+  };
+
+  const handleSaveEdit = async () => {
+    const newErrors: typeof editErrors = {};
+
+    if (!editEmail.trim()) {
+      newErrors.email = "Email é obrigatório";
+    } else if (!/\S+@\S+\.\S+/.test(editEmail)) {
+      newErrors.email = "Email inválido";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setEditErrors(newErrors);
+      return;
+    }
+
+    const success = await updateUser({
+      email: editEmail,
+      address: editAddress,
+    });
+
+    if (success) {
+      setIsEditing(false);
+      toast({
+        title: "Dados atualizados",
+        description: "Suas informações foram atualizadas com sucesso.",
+        duration: 3000,
+      });
+    } else {
+      setEditErrors({ email: "Este email já está em uso" });
+    }
+  };
+
   if (!user) {
     return null; // Will redirect
   }
@@ -66,11 +125,25 @@ const Account = () => {
             {/* User Info Card */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  Dados Pessoais
-                </CardTitle>
-                <CardDescription>Informações da sua conta</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <User className="w-5 h-5" />
+                      Dados Pessoais
+                    </CardTitle>
+                    <CardDescription>Informações da sua conta</CardDescription>
+                  </div>
+                  {!isEditing && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleEditClick}
+                    >
+                      <Edit2 className="w-4 h-4 mr-1" />
+                      Editar
+                    </Button>
+                  )}
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -83,59 +156,137 @@ const Account = () => {
 
                 <Separator />
 
-                <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-muted-foreground" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium">{user.email}</p>
-                  </div>
-                </div>
-
-                {user.phone && (
+                {isEditing ? (
                   <>
+                    <div className="space-y-2">
+                      <Label htmlFor="editEmail">Email</Label>
+                      <Input
+                        id="editEmail"
+                        type="email"
+                        value={editEmail}
+                        onChange={(e) => setEditEmail(e.target.value)}
+                      />
+                      {editErrors.email && (
+                        <p className="text-sm text-red-500">
+                          {editErrors.email}
+                        </p>
+                      )}
+                    </div>
+
                     <Separator />
+
+                    <div className="space-y-2">
+                      <Label htmlFor="editAddress">Endereço</Label>
+                      <Input
+                        id="editAddress"
+                        type="text"
+                        placeholder="Rua, número, bairro, cidade, estado"
+                        value={editAddress}
+                        onChange={(e) => setEditAddress(e.target.value)}
+                      />
+                      {editErrors.address && (
+                        <p className="text-sm text-red-500">
+                          {editErrors.address}
+                        </p>
+                      )}
+                    </div>
+
+                    <Separator />
+
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        onClick={handleSaveEdit}
+                        disabled={isLoading}
+                      >
+                        <Save className="w-4 h-4 mr-1" />
+                        Salvar
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleCancelEdit}
+                      >
+                        <X className="w-4 h-4 mr-1" />
+                        Cancelar
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <>
                     <div className="flex items-center gap-3">
-                      <Phone className="w-4 h-4 text-muted-foreground" />
+                      <Mail className="w-4 h-4 text-muted-foreground" />
+                      <div>
+                        <p className="text-sm text-muted-foreground">Email</p>
+                        <p className="font-medium">{user.email}</p>
+                      </div>
+                    </div>
+
+                    {user.address && (
+                      <>
+                        <Separator />
+                        <div className="flex items-center gap-3">
+                          <MapPin className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">
+                              Endereço
+                            </p>
+                            <p className="font-medium">{user.address}</p>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    {user.phone && (
+                      <>
+                        <Separator />
+                        <div className="flex items-center gap-3">
+                          <Phone className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">
+                              Telefone
+                            </p>
+                            <p className="font-medium">{user.phone}</p>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    {user.cpf && (
+                      <>
+                        <Separator />
+                        <div className="flex items-center gap-3">
+                          <User className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <p className="text-sm text-muted-foreground">CPF</p>
+                            <p className="font-medium">{user.cpf}</p>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
+                    <Separator />
+
+                    <div className="flex items-center gap-3">
+                      <Calendar className="w-4 h-4 text-muted-foreground" />
                       <div>
                         <p className="text-sm text-muted-foreground">
-                          Telefone
+                          Membro desde
                         </p>
-                        <p className="font-medium">{user.phone}</p>
+                        <p className="font-medium">
+                          {new Date(user.createdAt).toLocaleDateString(
+                            "pt-BR",
+                            {
+                              day: "2-digit",
+                              month: "long",
+                              year: "numeric",
+                            },
+                          )}
+                        </p>
                       </div>
                     </div>
                   </>
                 )}
-
-                {user.cpf && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center gap-3">
-                      <User className="w-4 h-4 text-muted-foreground" />
-                      <div>
-                        <p className="text-sm text-muted-foreground">CPF</p>
-                        <p className="font-medium">{user.cpf}</p>
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                <Separator />
-
-                <div className="flex items-center gap-3">
-                  <Calendar className="w-4 h-4 text-muted-foreground" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">
-                      Membro desde
-                    </p>
-                    <p className="font-medium">
-                      {new Date(user.createdAt).toLocaleDateString("pt-BR", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </p>
-                  </div>
-                </div>
               </CardContent>
             </Card>
 

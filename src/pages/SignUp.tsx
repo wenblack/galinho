@@ -26,11 +26,13 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [address, setAddress] = useState("");
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
     password?: string;
     confirmPassword?: string;
+    address?: string;
   }>({});
 
   const validateForm = () => {
@@ -69,7 +71,7 @@ const SignUp = () => {
 
     if (!validateForm()) return;
 
-    const success = await register(name, email, password);
+    const success = await register(name, email, password, address);
 
     if (success) {
       toast({
@@ -166,6 +168,21 @@ const SignUp = () => {
                   <p className="text-sm text-red-500">
                     {errors.confirmPassword}
                   </p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="address">Endereço</Label>
+                <Input
+                  id="address"
+                  type="text"
+                  placeholder="Rua, número, bairro, cidade, estado"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  disabled={isLoading}
+                />
+                {errors.address && (
+                  <p className="text-sm text-red-500">{errors.address}</p>
                 )}
               </div>
             </CardContent>

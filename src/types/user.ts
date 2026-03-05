@@ -3,6 +3,7 @@ export interface User {
   name: string;
   email: string;
   password: string;
+  address?: string;
   phone?: string;
   cpf?: string;
   createdAt: Date;
@@ -14,6 +15,7 @@ export interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string, address?: string) => Promise<boolean>;
+  updateUser: (updates: Partial<Pick<User, "email" | "address">>) => Promise<boolean>;
 }
 

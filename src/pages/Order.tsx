@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { mockProducts } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ShoppingCart, Send } from "lucide-react";
@@ -19,7 +20,16 @@ const parsePrice = (priceStr: string): number => {
 const Order = () => {
   const navigate = useNavigate();
   const { cart, clearCart } = useCart();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const { toast } = useToast();
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (isLoading) return;
+    if (!isAuthenticated) {
+      navigate("/signin");
+    }
+  }, [isAuthenticated, isLoading, navigate]);
 
   // Calculate totals
   const totalItems = cart.reduce((sum, item) => sum + item.clickCount, 0);
@@ -31,6 +41,17 @@ const Order = () => {
   // Generate WhatsApp message
   const generateWhatsAppMessage = () => {
     let message = "*Novo Pedido - Galinho*\n\n";
+
+    // User Info Section
+    message += "*Dados do Cliente:*\n";
+    message += `- Nome: ${user?.name || "Não informado"}\n`;
+    message += `- Email: ${user?.email || "Não informado"}\n`;
+    if (user?.address) {
+      message += `- Endereço: ${user.address}\n`;
+    }
+    message += `\n`;
+
+    // Items Section
     message += "*Itens:*\n";
 
     cart.forEach((item) => {

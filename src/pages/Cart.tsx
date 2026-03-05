@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { mockProducts } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -10,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const {
     cart,
     removeFromCart,
@@ -18,6 +20,19 @@ const Cart = () => {
     decrementCartItemClicks,
   } = useCart();
   const { toast } = useToast();
+
+  const handleConfirmOrder = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Login necessário",
+        description: "Por favor, faça login para confirmar seu pedido.",
+        duration: 3000,
+      });
+      navigate("/signin");
+      return;
+    }
+    navigate("/order");
+  };
 
   const totalItems = cart.reduce((s, it) => s + it.clickCount, 0);
 
@@ -105,9 +120,7 @@ const Cart = () => {
             <Button
               className="w-full mt-6"
               size="lg"
-              onClick={() => {
-                navigate("/order");
-              }}
+              onClick={handleConfirmOrder}
             >
               Confirmar Pedido
             </Button>

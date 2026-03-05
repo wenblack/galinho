@@ -70,6 +70,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     name: string,
     email: string,
     password: string,
+    address?: string,
   ): Promise<boolean> => {
     setIsLoading(true);
 
@@ -88,6 +89,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       name,
       email,
       password,
+      address,
       createdAt: new Date(),
     };
 
@@ -100,6 +102,38 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     return true;
   };
 
+  const updateUser = async (
+    updates: Partial<Pick<User, "email" | "address">>,
+  ): Promise<boolean> => {
+    if (!user) return false;
+
+    setIsLoading(true);
+
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Check if email already exists (if updating email)
+    if (updates.email && updates.email !== user.email) {
+      if (emailExists(updates.email)) {
+        setIsLoading(false);
+        return false;
+      }
+    }
+
+    // Update user in state
+    const updatedUser = { ...user, ...updates };
+    setUser(updatedUser);
+
+    // Update user in mockUsers array
+    const userIndex = mockUsers.findIndex((u) => u.id === user.id);
+    if (userIndex !== -1) {
+      mockUsers[userIndex] = updatedUser;
+    }
+
+    setIsLoading(false);
+    return true;
+  };
+
   const value: AuthContextType = {
     user,
     isAuthenticated: !!user,
@@ -107,6 +141,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     login,
     logout,
     register,
+    updateUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
