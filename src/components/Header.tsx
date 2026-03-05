@@ -9,9 +9,18 @@ import {
   Heart,
   Menu,
   X,
+  LogOut,
 } from "lucide-react";
 import logo from "@/assets/galinho-logo.png";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { label: "Ar Condicionado", href: "/category/Ar Condicionado" },
@@ -27,6 +36,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { cart } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
 
   // Calculate total items in cart (sum of all clickCounts)
   const totalCartItems = cart.reduce((sum, item) => sum + item.clickCount, 0);
@@ -117,13 +127,54 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <a
-              href="#"
-              className="flex items-center gap-1 hover:opacity-80 transition-opacity"
-            >
-              <User className="w-5 h-5" />
-              <span className="text-sm hidden md:block">Entrar</span>
-            </a>
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-1 hover:opacity-80 transition-opacity focus:outline-none">
+                    <User className="w-5 h-5" />
+                    <span className="text-sm hidden md:block">
+                      {user?.name.split(" ")[0]}
+                    </span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <a href="/account" className="cursor-pointer">
+                      <User className="w-4 h-4 mr-2" />
+                      Minha Conta
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout} className="cursor-pointer">
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sair
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-1 hover:opacity-80 transition-opacity focus:outline-none">
+                    <User className="w-5 h-5" />
+                    <span className="text-sm hidden md:block">Entrar</span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <a href="/signin" className="cursor-pointer">
+                      <User className="w-4 h-4 mr-2" />
+                      Entrar
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="/signup" className="cursor-pointer">
+                      <User className="w-4 h-4 mr-2" />
+                      Criar Conta
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
             <a
               href="/wishlist"
               aria-label="Wishlist"

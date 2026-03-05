@@ -10,6 +10,9 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import SearchResults from "./pages/SearchResults";
 import Category from "./pages/Category";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Account from "./pages/Account";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +29,9 @@ const App = () => (
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/category/:categoryName" element={<Category />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/account" element={<Account />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
