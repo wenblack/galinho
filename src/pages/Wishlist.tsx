@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useToast } from "@/hooks/use-toast";
 
 const Wishlist = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Wishlist = () => {
     addToWishlist,
     decrementWishlistItemClicks,
   } = useCart();
+  const { toast } = useToast();
 
   const totalItems = wishlist.reduce((s, it) => s + it.clickCount, 0);
 
@@ -25,7 +27,7 @@ const Wishlist = () => {
         <Header />
       </div>
       <main className="flex-1 pb-10 relative">
-        <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto px-4 py-8">
           <Button variant="ghost" onClick={() => navigate(-1)} className="mb-8">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar
@@ -95,6 +97,23 @@ const Wishlist = () => {
                 );
               })}
             </div>
+          )}
+
+          {wishlist.length > 0 && (
+            <Button
+              className="w-full mt-6"
+              size="lg"
+              onClick={() => {
+                clearWishlist();
+                toast({
+                  title: "Wishlist confirmada!",
+                  description: "Seus produtos foram confirmados com sucesso.",
+                  duration: 3000,
+                });
+              }}
+            >
+              Confirmar Produtos
+            </Button>
           )}
         </div>
       </main>
