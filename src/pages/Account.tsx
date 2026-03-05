@@ -26,15 +26,17 @@ import {
 
 const Account = () => {
   const navigate = useNavigate();
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout, isAuthenticated, isLoading } = useAuth();
   const { toast } = useToast();
 
-  // Redirect if not authenticated
+  // Wait for auth to finish loading before checking authentication
   React.useEffect(() => {
+    if (isLoading) return;
+
     if (!isAuthenticated) {
       navigate("/signin");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, isLoading, navigate]);
 
   const handleLogout = () => {
     logout();
