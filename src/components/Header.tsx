@@ -14,12 +14,12 @@ import logo from "@/assets/galinho-logo.png";
 import { useCart } from "@/contexts/CartContext";
 
 const navItems = [
-  "Ar Condicionado",
-  "Compressores",
-  "Peças e Acessórios",
-  "Purificadores",
-  "Ferramentas",
-  "Ofertas",
+  { label: "Ar Condicionado", href: "/category/Ar Condicionado" },
+  { label: "Compressores", href: "/category/Compressores" },
+  { label: "Peças e Acessórios", href: "/category/Peças e Acessórios" },
+  { label: "Purificadores", href: "/category/Purificadores" },
+  { label: "Ferramentas", href: "/category/Ferramentas" },
+  { label: "Ofertas", href: "/category/Ofertas" },
 ];
 
 const Header = () => {
@@ -169,12 +169,12 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-6 py-2">
             {navItems.map((item) => (
-              <li key={item}>
+              <li key={item.label}>
                 <a
-                  href="#"
+                  href={item.href}
                   className="hover:opacity-80 transition-opacity font-medium"
                 >
-                  {item}
+                  {item.label}
                 </a>
               </li>
             ))}
@@ -187,13 +187,13 @@ const Header = () => {
         <nav className="md:hidden bg-primary text-primary-foreground border-t border-primary-foreground/10 animate-in slide-in-from-top-2 duration-200">
           <ul className="container mx-auto px-4 py-3 space-y-1">
             {navItems.map((item) => (
-              <li key={item}>
+              <li key={item.label}>
                 <a
-                  href="#"
+                  href={item.href}
                   className="block py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
                   onClick={() => setMenuOpen(false)}
                 >
-                  {item}
+                  {item.label}
                 </a>
               </li>
             ))}
