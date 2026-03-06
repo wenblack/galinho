@@ -96,9 +96,14 @@ const Header = () => {
               alt="Galinho"
               className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-primary-foreground"
             />
-            <span className="text-xl sm:text-2xl font-bold tracking-tight hidden sm:block">
-              GALINHO
-            </span>
+            <div className="hidden sm:block">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight block leading-tight">
+                GALINHO
+              </span>
+              <span className="text-[10px] opacity-70 tracking-wider block -mt-0.5">
+                REFRIGERAÇÃO E AR CONDICIONADO
+              </span>
+            </div>
           </a>
 
           {/* Search - hidden on mobile, shown on sm+ */}
