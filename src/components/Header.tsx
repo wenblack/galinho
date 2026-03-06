@@ -24,10 +24,12 @@ import {
 
 const navItems = [
   { label: "Loja", href: "/" },
-  { label: "Nossa História", href: "/nossa-historia" },
-  { label: "Contato", href: "/contato" },
-  { label: "Política de Privacidade", href: "/politica-de-privacidade" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Compressores", href: "/category/Compressores" },
+  { label: "Ar Condicionado", href: "/category/Ar Condicionado" },
+  { label: "Purificadores", href: "/category/Purificadores" },
+  { label: "Peças e Acessórios", href: "/category/Peças e Acessórios" },
+  { label: "Ferramentas", href: "/category/Ferramentas" },
+  { label: "Ofertas", href: "/category/Ofertas" },
 ];
 
 const Header = () => {

@@ -25,7 +25,7 @@ const Footer = () => {
           <div className="text-center sm:text-left">
             <h3 className="font-bold text-sm uppercase mb-3">Institucional</h3>
             <ul className="space-y-1.5 text-sm opacity-80">
-              <li><a href="/nossa-historia" className="hover:underline">Nossa História</a></li>
+              
               <li><a href="/politica-de-privacidade" className="hover:underline">Política de Privacidade</a></li>
               <li><a href="/contato" className="hover:underline">Contato</a></li>
               <li><a href="/faq" className="hover:underline">FAQ</a></li>
