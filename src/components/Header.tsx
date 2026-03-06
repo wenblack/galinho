@@ -23,12 +23,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navItems = [
-  { label: "Ar Condicionado", href: "/category/Ar Condicionado" },
-  { label: "Compressores", href: "/category/Compressores" },
-  { label: "Peças e Acessórios", href: "/category/Peças e Acessórios" },
-  { label: "Purificadores", href: "/category/Purificadores" },
-  { label: "Ferramentas", href: "/category/Ferramentas" },
-  { label: "Ofertas", href: "/category/Ofertas" },
+  { label: "Loja", href: "/" },
+  { label: "Nossa História", href: "/nossa-historia" },
+  { label: "Contato", href: "/contato" },
+  { label: "Política de Privacidade", href: "/politica-de-privacidade" },
+  { label: "FAQ", href: "/faq" },
 ];
 
 const Header = () => {
@@ -97,9 +96,14 @@ const Header = () => {
               alt="Galinho"
               className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-primary-foreground"
             />
-            <span className="text-xl sm:text-2xl font-bold tracking-tight hidden sm:block">
-              GALINHO
-            </span>
+            <div className="hidden sm:block">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight block leading-tight">
+                GALINHO
+              </span>
+              <span className="text-[10px] opacity-70 tracking-wider block -mt-0.5">
+                REFRIGERAÇÃO E AR CONDICIONADO
+              </span>
+            </div>
           </a>
 
           {/* Search - hidden on mobile, shown on sm+ */}

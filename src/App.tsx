@@ -14,6 +14,10 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account";
 import Order from "./pages/Order";
+import NossaHistoria from "./pages/NossaHistoria";
+import Contato from "./pages/Contato";
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
+import FAQ from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +38,10 @@ const App = () => (
           <Route path="/signup" element={<SignUp />} />
           <Route path="/account" element={<Account />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/nossa-historia" element={<NossaHistoria />} />
+          <Route path="/contato" element={<Contato />} />
+          <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
