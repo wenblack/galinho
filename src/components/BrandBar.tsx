@@ -1,16 +1,88 @@
 import { useEffect, useRef } from "react";
 
 const brands = [
-  { name: "Copeland", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Emerson_Electric_logo.svg/200px-Emerson_Electric_logo.svg.png" },
-  { name: "Midea", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Midea_logo.svg/200px-Midea_logo.svg.png" },
-  { name: "Danfoss", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Danfoss-Logo.svg/200px-Danfoss-Logo.svg.png" },
-  { name: "IBBL", logo: "" },
-  { name: "Bitzer", logo: "" },
-  { name: "Carrier", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Carrier_logo.svg/200px-Carrier_logo.svg.png" },
-  { name: "Samsung", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/200px-Samsung_Logo.svg.png" },
-  { name: "LG", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/LG_logo_%282015%29.svg/200px-LG_logo_%282015%29.svg.png" },
-  { name: "Chemours", logo: "" },
-  { name: "EBM Papst", logo: "" },
+  {
+    name: "Copeland",
+    svg: (
+      <svg viewBox="0 0 120 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">COPELAND</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Midea",
+    svg: (
+      <svg viewBox="0 0 100 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="20" fill="currentColor">midea</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Danfoss",
+    svg: (
+      <svg viewBox="0 0 120 30" className="h-6 w-auto">
+        <rect x="0" y="2" width="26" height="26" rx="3" fill="currentColor" />
+        <text x="32" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">Danfoss</text>
+      </svg>
+    ),
+  },
+  {
+    name: "IBBL",
+    svg: (
+      <svg viewBox="0 0 80 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="22" fill="currentColor">IBBL</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Bitzer",
+    svg: (
+      <svg viewBox="0 0 100 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="20" fill="currentColor">BITZER</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Carrier",
+    svg: (
+      <svg viewBox="0 0 110 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">Carrier</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Samsung",
+    svg: (
+      <svg viewBox="0 0 140 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" letterSpacing="2" fill="currentColor">SAMSUNG</text>
+      </svg>
+    ),
+  },
+  {
+    name: "LG",
+    svg: (
+      <svg viewBox="0 0 50 30" className="h-7 w-auto">
+        <circle cx="15" cy="15" r="13" stroke="currentColor" strokeWidth="2.5" fill="none" />
+        <text x="8" y="21" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="14" fill="currentColor">LG</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Chemours",
+    svg: (
+      <svg viewBox="0 0 130 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">Chemours</text>
+      </svg>
+    ),
+  },
+  {
+    name: "EBM Papst",
+    svg: (
+      <svg viewBox="0 0 140 30" className="h-6 w-auto">
+        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="16" fill="currentColor">ebm-papst</text>
+      </svg>
+    ),
+  },
 ];
 
 const BrandBar = () => {
@@ -35,7 +107,9 @@ const BrandBar = () => {
     animationId = requestAnimationFrame(scroll);
 
     const handleMouseEnter = () => cancelAnimationFrame(animationId);
-    const handleMouseLeave = () => { animationId = requestAnimationFrame(scroll); };
+    const handleMouseLeave = () => {
+      animationId = requestAnimationFrame(scroll);
+    };
 
     el.addEventListener("mouseenter", handleMouseEnter);
     el.addEventListener("mouseleave", handleMouseLeave);
@@ -47,7 +121,6 @@ const BrandBar = () => {
     };
   }, []);
 
-  // Double the brands for infinite scroll effect
   const allBrands = [...brands, ...brands];
 
   return (
@@ -61,9 +134,9 @@ const BrandBar = () => {
           {allBrands.map((brand, i) => (
             <span
               key={`${brand.name}-${i}`}
-              className="text-foreground/50 font-bold text-sm md:text-base tracking-wide hover:text-foreground/80 transition-colors cursor-pointer shrink-0"
+              className="text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer shrink-0"
             >
-              {brand.name}
+              {brand.svg}
             </span>
           ))}
         </div>
