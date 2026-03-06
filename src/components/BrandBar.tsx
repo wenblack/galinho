@@ -1,87 +1,33 @@
 import { useEffect, useRef } from "react";
 
-const brands = [
-  {
-    name: "Copeland",
-    svg: (
-      <svg viewBox="0 0 120 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">COPELAND</text>
-      </svg>
-    ),
-  },
+const brands: Array<{ name: string; img: string; svg?: React.ReactNode }> = [
   {
     name: "Midea",
-    svg: (
-      <svg viewBox="0 0 100 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="20" fill="currentColor">midea</text>
-      </svg>
-    ),
+    img: "/logo_midea.png",
   },
   {
     name: "Danfoss",
-    svg: (
-      <svg viewBox="0 0 120 30" className="h-6 w-auto">
-        <rect x="0" y="2" width="26" height="26" rx="3" fill="currentColor" />
-        <text x="32" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">Danfoss</text>
-      </svg>
-    ),
+    img: "/logo_danfoss.png",
   },
   {
     name: "IBBL",
-    svg: (
-      <svg viewBox="0 0 80 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="22" fill="currentColor">IBBL</text>
-      </svg>
-    ),
+    img: "/logo_ibbl.png",
   },
   {
     name: "Bitzer",
-    svg: (
-      <svg viewBox="0 0 100 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="20" fill="currentColor">BITZER</text>
-      </svg>
-    ),
+    img: "/logo_bitzer.png",
   },
   {
     name: "Carrier",
-    svg: (
-      <svg viewBox="0 0 110 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">Carrier</text>
-      </svg>
-    ),
-  },
-  {
-    name: "Samsung",
-    svg: (
-      <svg viewBox="0 0 140 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" letterSpacing="2" fill="currentColor">SAMSUNG</text>
-      </svg>
-    ),
-  },
-  {
-    name: "LG",
-    svg: (
-      <svg viewBox="0 0 50 30" className="h-7 w-auto">
-        <circle cx="15" cy="15" r="13" stroke="currentColor" strokeWidth="2.5" fill="none" />
-        <text x="8" y="21" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="14" fill="currentColor">LG</text>
-      </svg>
-    ),
+    img: "/logo_carrier.png",
   },
   {
     name: "Chemours",
-    svg: (
-      <svg viewBox="0 0 130 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="currentColor">Chemours</text>
-      </svg>
-    ),
+    img: "/logo_the_chemours.png",
   },
   {
     name: "EBM Papst",
-    svg: (
-      <svg viewBox="0 0 140 30" className="h-6 w-auto">
-        <text x="0" y="22" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="16" fill="currentColor">ebm-papst</text>
-      </svg>
-    ),
+    img: "/logo_ebm.png",
   },
 ];
 
@@ -136,7 +82,15 @@ const BrandBar = () => {
               key={`${brand.name}-${i}`}
               className="text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer shrink-0"
             >
-              {brand.svg}
+              {brand.img ? (
+                <img
+                  src={brand.img}
+                  alt={brand.name}
+                  className="h-[118px] w-auto object-contain"
+                />
+              ) : (
+                brand.svg
+              )}
             </span>
           ))}
         </div>
