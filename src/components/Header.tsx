@@ -23,13 +23,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navItems = [
-  { label: "Loja", href: "/" },
-  { label: "Compressores", href: "/category/Compressores" },
-  { label: "Ar Condicionado", href: "/category/Ar Condicionado" },
-  { label: "Purificadores", href: "/category/Purificadores" },
-  { label: "Peças e Acessórios", href: "/category/Peças e Acessórios" },
-  { label: "Ferramentas", href: "/category/Ferramentas" },
-  { label: "Ofertas", href: "/category/Ofertas" },
+  { label: "Home", href: "/" },
+  { label: "Nossa História", href: "/nossa-historia" },
+  { label: "Contato", href: "/contato" },
+  { label: "Produtos", href: "/produtos" },
 ];
 
 const Header = () => {

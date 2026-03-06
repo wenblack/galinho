@@ -18,6 +18,8 @@ import Order from "./pages/Order";
 import Contato from "./pages/Contato";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import FAQ from "./pages/FAQ";
+import NossaHistoria from "./pages/NossaHistoria";
+import Produtos from "./pages/Produtos";
 
 const queryClient = new QueryClient();
 
@@ -38,9 +40,14 @@ const App = () => (
           <Route path="/signup" element={<SignUp />} />
           <Route path="/account" element={<Account />} />
           <Route path="/order" element={<Order />} />
-          
+
           <Route path="/contato" element={<Contato />} />
-          <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
+          <Route path="/nossa-historia" element={<NossaHistoria />} />
+          <Route path="/produtos" element={<Produtos />} />
+          <Route
+            path="/politica-de-privacidade"
+            element={<PoliticaPrivacidade />}
+          />
           <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
