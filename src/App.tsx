@@ -14,7 +14,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account";
 import Order from "./pages/Order";
-import NossaHistoria from "./pages/NossaHistoria";
+
 import Contato from "./pages/Contato";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import FAQ from "./pages/FAQ";
