@@ -202,21 +202,23 @@ const Header = () => {
         </div>
 
         {/* Mobile search bar */}
-        <div className="sm:hidden container mx-auto px-4 mt-2">
-          <form onSubmit={handleSearch} className="relative">
+        <div className="sm:hidden container mx-auto px-4 mt-2 pb-1">
+          <form onSubmit={handleSearch} className="relative" role="search" aria-label="Buscar produtos">
+            <label htmlFor="mobile-search" className="sr-only">Buscar produtos</label>
             <input
-              type="text"
+              id="mobile-search"
+              type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="O que você está procurando?"
-              className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full py-2.5 px-4 pr-12 rounded-lg text-foreground text-sm bg-background border-2 border-foreground/20 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-muted-foreground"
             />
             <button
               type="submit"
               aria-label="Buscar"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-1 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-md p-1.5 hover:bg-primary/90 transition-colors"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4" />
             </button>
           </form>
         </div>
