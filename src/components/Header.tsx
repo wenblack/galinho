@@ -93,7 +93,7 @@ const Header = () => {
             <img
               src={logo}
               alt="Galinho"
-              className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-primary-foreground"
+              className="h-9 w-9 sm:h-10 sm:w-10 rounded-full"
             />
             <div className="hidden sm:block">
               <span className="text-xl sm:text-2xl font-bold tracking-tight block leading-tight">
