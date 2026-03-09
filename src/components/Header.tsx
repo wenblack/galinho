@@ -238,7 +238,7 @@ const Header = () => {
 
       {/* Mobile Navigation Drawer */}
       {menuOpen && (
-        <nav className="md:hidden bg-primary text-primary-foreground border-t border-primary-foreground/10 animate-in slide-in-from-top-2 duration-200">
+        <nav className="md:hidden bg-background text-foreground border-t border-border animate-in slide-in-from-top-2 duration-200">
           <ul className="container mx-auto px-4 py-3 space-y-1">
             {navItems.map((item) => (
               <li key={item.label}>
