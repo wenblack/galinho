@@ -77,7 +77,7 @@ const Header = () => {
         <div className="container mx-auto px-4 flex items-center justify-between gap-3">
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-primary-foreground"
+            className="md:hidden text-foreground"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
