@@ -253,7 +253,7 @@ const Header = () => {
             ))}
 
             {/* Account options in mobile menu */}
-            <li className="pt-2 mt-2 border-t border-primary-foreground/10">
+            <li className="pt-2 mt-2 border-t border-border">
               {isAuthenticated ? (
                 <>
                   <a
