@@ -225,14 +225,14 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block bg-primary text-primary-foreground text-sm">
+      <nav className="hidden md:block bg-background text-foreground text-sm border-b border-border" aria-label="Navegação principal">
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-6 py-2">
             {navItems.map((item) => (
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="hover:opacity-80 transition-opacity font-medium"
+                  className="hover:text-primary transition-colors font-medium"
                 >
                   {item.label}
                 </a>
