@@ -205,7 +205,7 @@ const Header = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="O que você está procurando?"
-              className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <button
               type="submit"
