@@ -219,7 +219,7 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block bg-primary/90 text-primary-foreground text-sm border-t border-primary-foreground/10">
+      <nav className="hidden md:block bg-primary text-primary-foreground text-sm">
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-6 py-2">
             {navItems.map((item) => (
