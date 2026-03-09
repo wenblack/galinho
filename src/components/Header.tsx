@@ -73,11 +73,11 @@ const Header = () => {
       </div>
 
       {/* Main header */}
-      <div className="bg-primary text-primary-foreground py-3">
+      <div className="bg-background text-foreground py-3 border-b border-border">
         <div className="container mx-auto px-4 flex items-center justify-between gap-3">
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-primary-foreground"
+            className="md:hidden text-foreground"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
@@ -93,7 +93,7 @@ const Header = () => {
             <img
               src={logo}
               alt="Galinho"
-              className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-primary-foreground"
+              className="h-9 w-9 sm:h-10 sm:w-10 rounded-full"
             />
             <div className="hidden sm:block">
               <span className="text-xl sm:text-2xl font-bold tracking-tight block leading-tight">
@@ -116,7 +116,7 @@ const Header = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="O que você está procurando?"
-                className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button
                 type="submit"
@@ -205,7 +205,7 @@ const Header = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="O que você está procurando?"
-              className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full py-2 px-4 pr-10 rounded-md text-foreground text-sm bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <button
               type="submit"
@@ -219,7 +219,7 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block bg-primary/90 text-primary-foreground text-sm border-t border-primary-foreground/10">
+      <nav className="hidden md:block bg-primary text-primary-foreground text-sm">
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-6 py-2">
             {navItems.map((item) => (
@@ -238,13 +238,13 @@ const Header = () => {
 
       {/* Mobile Navigation Drawer */}
       {menuOpen && (
-        <nav className="md:hidden bg-primary text-primary-foreground border-t border-primary-foreground/10 animate-in slide-in-from-top-2 duration-200">
+        <nav className="md:hidden bg-background text-foreground border-t border-border animate-in slide-in-from-top-2 duration-200">
           <ul className="container mx-auto px-4 py-3 space-y-1">
             {navItems.map((item) => (
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="block py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                  className="block py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
@@ -253,12 +253,12 @@ const Header = () => {
             ))}
 
             {/* Account options in mobile menu */}
-            <li className="pt-2 mt-2 border-t border-primary-foreground/10">
+            <li className="pt-2 mt-2 border-t border-border">
               {isAuthenticated ? (
                 <>
                   <a
                     href="/account"
-                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     <User className="w-4 h-4" />
@@ -269,7 +269,7 @@ const Header = () => {
                       logout();
                       setMenuOpen(false);
                     }}
-                    className="flex items-center gap-2 w-full py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm text-left"
+                    className="flex items-center gap-2 w-full py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm text-left"
                   >
                     <LogOut className="w-4 h-4" />
                     Sair
@@ -279,7 +279,7 @@ const Header = () => {
                 <>
                   <a
                     href="/signin"
-                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     <User className="w-4 h-4" />
@@ -287,7 +287,7 @@ const Header = () => {
                   </a>
                   <a
                     href="/signup"
-                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     <User className="w-4 h-4" />
