@@ -24,10 +24,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Nossa História", href: "/nossa-historia" },
-  { label: "Contato", href: "/contato" },
-  { label: "Produtos", href: "/produtos" },
+  { label: "HOME", href: "/" },
+  { label: "NOSSA HISTÓRIA", href: "/nossa-historia" },
+  { label: "CONTATO", href: "/contato" },
+  { label: "PRODUTOS", href: "/produtos" },
 ];
 
 const Header = () => {
@@ -50,7 +50,7 @@ const Header = () => {
   return (
     <header className="w-full">
       {/* Top bar */}
-      <div className="bg-secondary text-secondary-foreground text-xs py-1.5">
+      <div className="bg-[#0A6ED3] text-secondary-foreground text-xs py-1.5">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
@@ -114,7 +114,9 @@ const Header = () => {
             aria-label="Buscar produtos"
           >
             <div className="relative w-full">
-              <label htmlFor="desktop-search" className="sr-only">Buscar produtos</label>
+              <label htmlFor="desktop-search" className="sr-only">
+                Buscar produtos
+              </label>
               <input
                 id="desktop-search"
                 type="search"
@@ -204,8 +206,15 @@ const Header = () => {
 
         {/* Mobile search bar */}
         <div className="sm:hidden container mx-auto px-4 mt-2 pb-1">
-          <form onSubmit={handleSearch} className="relative" role="search" aria-label="Buscar produtos">
-            <label htmlFor="mobile-search" className="sr-only">Buscar produtos</label>
+          <form
+            onSubmit={handleSearch}
+            className="relative"
+            role="search"
+            aria-label="Buscar produtos"
+          >
+            <label htmlFor="mobile-search" className="sr-only">
+              Buscar produtos
+            </label>
             <input
               id="mobile-search"
               type="search"
@@ -226,15 +235,18 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block bg-[#ECECEC] text-foreground text-base border-b border-border" aria-label="Navegação principal">
+      <nav
+        className="hidden md:block bg-[#ECECEC] text-foreground text-base border-b border-border"
+        aria-label="Navegação principal"
+      >
         <div className="container mx-auto px-4">
           <ul className="flex items-center justify-evenly py-2.5">
             {navItems.map((item) => (
               <li key={item.label}>
                 <NavLink
                   to={item.href}
-                  className="py-2 px-3 font-bold transition-colors hover:text-primary border-b-[3px] border-transparent"
-                  activeClassName="text-primary !border-primary"
+                  className="py-2 px-3 font-bold transition-colors capitalize hover:text-primary border-b-[3px] border-transparent"
+                  activeClassName="text-primary !border-primary "
                   style={{ fontFamily: "'Instrument Sans', sans-serif" }}
                 >
                   {item.label}
