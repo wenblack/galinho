@@ -225,9 +225,9 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block bg-background text-foreground text-sm border-b border-border" aria-label="Navegação principal">
+      <nav className="hidden md:block bg-background text-foreground text-base border-b border-border" aria-label="Navegação principal">
         <div className="container mx-auto px-4">
-          <ul className="flex items-center gap-6 py-2">
+          <ul className="flex items-center justify-evenly py-2.5">
             {navItems.map((item) => (
               <li key={item.label}>
                 <a
