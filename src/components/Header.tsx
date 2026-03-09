@@ -233,8 +233,9 @@ const Header = () => {
               <li key={item.label}>
                 <NavLink
                   to={item.href}
-                  className="py-1.5 px-3 rounded-md font-bold transition-colors hover:text-primary border-b-2 border-transparent"
-                  activeClassName="text-primary border-b-2 !border-primary"
+                  className="py-2 px-3 font-bold transition-colors hover:text-primary border-b-[3px] border-transparent"
+                  activeClassName="text-primary !border-primary"
+                  style={{ fontFamily: "'Instrument Sans', sans-serif" }}
                 >
                   {item.label}
                 </NavLink>
