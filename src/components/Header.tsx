@@ -244,7 +244,7 @@ const Header = () => {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="block py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                  className="block py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
