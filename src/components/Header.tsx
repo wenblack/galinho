@@ -73,7 +73,7 @@ const Header = () => {
       </div>
 
       {/* Main header */}
-      <div className="bg-primary text-primary-foreground py-3">
+      <div className="bg-background text-foreground py-3 border-b border-border">
         <div className="container mx-auto px-4 flex items-center justify-between gap-3">
           {/* Mobile menu button */}
           <button
