@@ -279,7 +279,7 @@ const Header = () => {
                 <>
                   <a
                     href="/signin"
-                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm"
+                    className="flex items-center gap-2 py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm"
                     onClick={() => setMenuOpen(false)}
                   >
                     <User className="w-4 h-4" />
