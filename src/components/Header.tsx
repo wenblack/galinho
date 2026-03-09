@@ -269,7 +269,7 @@ const Header = () => {
                       logout();
                       setMenuOpen(false);
                     }}
-                    className="flex items-center gap-2 w-full py-2.5 px-3 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium text-sm text-left"
+                    className="flex items-center gap-2 w-full py-2.5 px-3 rounded-md hover:bg-muted transition-colors font-medium text-sm text-left"
                   >
                     <LogOut className="w-4 h-4" />
                     Sair
