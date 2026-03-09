@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import {
   Search,
@@ -225,17 +226,18 @@ const Header = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block bg-background text-foreground text-base border-b border-border" aria-label="Navegação principal">
+      <nav className="hidden md:block bg-[#ECECEC] text-foreground text-base border-b border-border" aria-label="Navegação principal">
         <div className="container mx-auto px-4">
           <ul className="flex items-center justify-evenly py-2.5">
             {navItems.map((item) => (
               <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="hover:text-primary transition-colors font-medium"
+                <NavLink
+                  to={item.href}
+                  className="py-1.5 px-3 rounded-md font-bold transition-colors hover:text-primary border-b-2 border-transparent"
+                  activeClassName="text-primary border-b-2 !border-primary"
                 >
                   {item.label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
