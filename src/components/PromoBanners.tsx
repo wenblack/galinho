@@ -1,36 +1,55 @@
+import promoParts from "@/assets/promo-parts.png";
+import promoPurifier from "@/assets/promo-purifier.png";
+
 const PromoBanners = () => {
   return (
     <section className="py-6 sm:py-8 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          {/* Peças para Ar-Condicionado */}
           <a
-            href="#"
-            className="relative overflow-hidden rounded-lg group bg-secondary h-28 sm:h-32 md:h-40 flex items-center px-5 sm:px-6"
+            href="/category/Peças"
+            className="relative overflow-hidden rounded-xl group h-36 sm:h-40 md:h-48 flex items-center justify-between px-5 sm:px-8"
+            style={{ background: "linear-gradient(135deg, #C8A200 0%, #DAB800 100%)" }}
           >
-            <div className="z-10">
-              <p className="text-secondary-foreground font-bold text-base sm:text-lg md:text-xl">
-                Peças para Ar-Condicionado
+            <div className="z-10 flex-1">
+              <p className="text-white font-bold text-lg sm:text-xl md:text-2xl leading-tight mb-3">
+                Peças para<br />Ar-Condicionado
               </p>
-              <span className="inline-block mt-2 cta-gradient text-accent-foreground text-xs font-bold py-1.5 px-4 rounded uppercase">
+              <span className="inline-block bg-accent text-accent-foreground text-xs font-bold py-2 px-5 rounded-md uppercase tracking-wide hover:opacity-90 transition-opacity">
                 Confira
               </span>
             </div>
-            <div className="absolute inset-0 bg-secondary/80 group-hover:bg-secondary/70 transition-colors" />
+            <div className="z-10 flex-shrink-0 w-24 sm:w-32 md:w-40">
+              <img
+                src={promoParts}
+                alt="Peças para Ar-Condicionado"
+                className="w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
           </a>
+
+          {/* Purificadores de Água */}
           <a
-            href="#"
-            className="relative overflow-hidden rounded-lg group h-28 sm:h-32 md:h-40 flex items-center px-5 sm:px-6"
-            style={{ background: "hsl(0 70% 40%)" }}
+            href="/category/Purificadores"
+            className="relative overflow-hidden rounded-xl group h-36 sm:h-40 md:h-48 flex items-center justify-between px-5 sm:px-8"
+            style={{ background: "linear-gradient(135deg, #8B1A1A 0%, #B22222 100%)" }}
           >
-            <div className="z-10">
-              <p className="text-primary-foreground font-bold text-base sm:text-lg md:text-xl">
-                Purificadores de Água
+            <div className="z-10 flex-1">
+              <p className="text-white font-bold text-lg sm:text-xl md:text-2xl leading-tight mb-3">
+                Purificadores<br />de Água
               </p>
-              <span className="inline-block mt-2 bg-primary-foreground text-foreground text-xs font-bold py-1.5 px-4 rounded uppercase">
-                Saiba mais
+              <span className="inline-block bg-white text-foreground text-xs font-bold py-2 px-5 rounded-md uppercase tracking-wide hover:opacity-90 transition-opacity">
+                Confira
               </span>
             </div>
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+            <div className="z-10 flex-shrink-0 w-24 sm:w-32 md:w-40">
+              <img
+                src={promoPurifier}
+                alt="Purificadores de Água"
+                className="w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
           </a>
         </div>
       </div>
