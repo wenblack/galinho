@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { User, AuthContextType } from "@/types/user";
-import { mockUsers, emailExists } from "@/data/users";
+import { mockUsers, emailExists, cpfExists } from "@/data/users";
 
 const AUTH_STORAGE_KEY = "galinho_auth";
 
