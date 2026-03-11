@@ -35,6 +35,7 @@ import {
 const Account = () => {
   const navigate = useNavigate();
   const { user, logout, isAuthenticated, isLoading, updateUser } = useAuth();
+  const { getOrdersByUser } = useOrders();
   const { toast } = useToast();
 
   const [isEditing, setIsEditing] = useState(false);
