@@ -345,17 +345,64 @@ const Account = () => {
               <CardDescription>Histórico de pedidos</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-muted-foreground">
-                <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Nenhum pedido realizado ainda.</p>
-                <Button
-                  variant="link"
-                  onClick={() => navigate("/")}
-                  className="mt-2"
-                >
-                  Começar a comprar
-                </Button>
-              </div>
+              {(() => {
+                const userOrders = user ? getOrdersByUser(user.id) : [];
+                if (userOrders.length === 0) {
+                  return (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                      <p>Nenhum pedido realizado ainda.</p>
+                      <Button
+                        variant="link"
+                        onClick={() => navigate("/")}
+                        className="mt-2"
+                      >
+                        Começar a comprar
+                      </Button>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="space-y-3">
+                    {userOrders.map((order) => {
+                      const orderDate = new Date(order.createdAt);
+                      const totalItems = order.items.reduce((s, i) => s + i.quantity, 0);
+                      return (
+                        <div
+                          key={order.id}
+                          className="border rounded-lg p-4 flex items-center justify-between hover:bg-muted/50 cursor-pointer transition-colors"
+                          onClick={() => navigate(`/order/${order.id}`)}
+                        >
+                          <div>
+                            <p className="font-semibold">{order.id}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {orderDate.toLocaleDateString("pt-BR", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                              })}{" "}
+                              às{" "}
+                              {orderDate.toLocaleTimeString("pt-BR", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {totalItems} {totalItems === 1 ? "item" : "itens"}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-bold">
+                              R$ {order.total.toFixed(2).replace(".", ",")}
+                            </p>
+                            <p className="text-xs text-secondary font-medium">Ver detalhes →</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
             </CardContent>
           </Card>
         </div>
