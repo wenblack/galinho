@@ -27,12 +27,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [cpf, setCpf] = useState("");
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
     password?: string;
     confirmPassword?: string;
     address?: string;
+    cpf?: string;
   }>({});
 
   const validateForm = () => {
