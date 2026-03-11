@@ -189,6 +189,22 @@ const SignUp = () => {
               </div>
 
               <div className="space-y-2">
+                <Label htmlFor="cpf">CPF</Label>
+                <Input
+                  id="cpf"
+                  type="text"
+                  placeholder="000.000.000-00"
+                  value={cpf}
+                  onChange={(e) => setCpf(formatCpf(e.target.value))}
+                  disabled={isLoading}
+                  maxLength={14}
+                />
+                {errors.cpf && (
+                  <p className="text-sm text-destructive">{errors.cpf}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="address">Endereço</Label>
                 <Input
                   id="address"
@@ -199,7 +215,7 @@ const SignUp = () => {
                   disabled={isLoading}
                 />
                 {errors.address && (
-                  <p className="text-sm text-red-500">{errors.address}</p>
+                  <p className="text-sm text-destructive">{errors.address}</p>
                 )}
               </div>
             </CardContent>
