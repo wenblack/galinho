@@ -1,182 +1,133 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCart } from "@/contexts/CartContext";
+import { useNavigate, useParams } from "react-router-dom";
+import { useOrders } from "@/contexts/OrderContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { mockProducts } from "@/data/products";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ShoppingCart, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle, Package } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useToast } from "@/hooks/use-toast";
-
-// WhatsApp phone number (replace with actual number)
-const WHATSAPP_NUMBER = "5511999999999";
-
-// Helper function to parse price
-const parsePrice = (priceStr: string): number => {
-  return parseFloat(priceStr.replace(/[^\d,]/g, "").replace(",", ".")) || 0;
-};
+import { Separator } from "@/components/ui/separator";
 
 const Order = () => {
   const navigate = useNavigate();
-  const { cart, clearCart } = useCart();
-  const { user, isAuthenticated, isLoading } = useAuth();
-  const { toast } = useToast();
+  const { id } = useParams<{ id: string }>();
+  const { getOrderById } = useOrders();
+  const { isAuthenticated, isLoading } = useAuth();
 
-  // Redirect if not authenticated
   useEffect(() => {
-    if (isLoading) return;
-    if (!isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       navigate("/signin");
     }
   }, [isAuthenticated, isLoading, navigate]);
 
-  // Calculate totals
-  const totalItems = cart.reduce((sum, item) => sum + item.clickCount, 0);
-  const totalPrice = cart.reduce((sum, item) => {
-    const product = mockProducts.find((p) => p.id === item.id);
-    return sum + (product ? parsePrice(product.price) * item.clickCount : 0);
-  }, 0);
+  const order = id ? getOrderById(id) : undefined;
 
-  // Generate WhatsApp message
-  const generateWhatsAppMessage = () => {
-    let message = "*Novo Pedido - Galinho*\n\n";
+  if (!order) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-lg text-muted-foreground mb-4">Pedido não encontrado.</p>
+            <Button onClick={() => navigate("/account")}>Voltar para Minha Conta</Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
-    // User Info Section
-    message += "*Dados do Cliente:*\n";
-    message += `- Nome: ${user?.name || "Não informado"}\n`;
-    message += `- Email: ${user?.email || "Não informado"}\n`;
-    if (user?.address) {
-      message += `- Endereço: ${user.address}\n`;
-    }
-    message += `\n`;
-
-    // Items Section
-    message += "*Itens:*\n";
-
-    cart.forEach((item) => {
-      const product = mockProducts.find((p) => p.id === item.id);
-      if (product) {
-        message += `- ${product.name} x${item.clickCount} = R$ ${(parsePrice(product.price) * item.clickCount).toFixed(2).replace(".", ",")}\n`;
-      }
-    });
-
-    message += `\n*Total: R$ ${totalPrice.toFixed(2).replace(".", ",")}*\n`;
-    message += `\nPor favor, confirme o pedido. Obrigado!`;
-
-    return encodeURIComponent(message);
-  };
-
-  const handleWhatsAppOrder = () => {
-    const message = generateWhatsAppMessage();
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-    window.open(whatsappUrl, "_blank");
-
-    // Clear cart after sending to WhatsApp
-    clearCart();
-
-    toast({
-      title: "Pedido enviado!",
-      description: "Seu pedido foi enviado via WhatsApp.",
-      duration: 3000,
-    });
-
-    navigate("/");
-  };
+  const orderDate = new Date(order.createdAt);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="top-0 w-full">
-        <Header />
-      </div>
-      <main className="flex-1 pb-10 relative">
+      <Header />
+      <main className="flex-1 pb-10">
         <div className="max-w-2xl mx-auto px-4 py-8">
-          <Button variant="ghost" onClick={() => navigate(-1)} className="mb-8">
+          <Button variant="ghost" onClick={() => navigate("/account")} className="mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Voltar
+            Voltar para Minha Conta
           </Button>
 
-          <h1 className="text-2xl font-bold mb-4">Confirmar Pedido</h1>
+          {/* Success Header */}
+          <div className="text-center mb-8">
+            <CheckCircle className="w-16 h-16 mx-auto mb-4 text-secondary" />
+            <h1 className="text-2xl font-bold">Pedido Confirmado!</h1>
+            <p className="text-muted-foreground mt-1">Código: {order.id}</p>
+          </div>
 
-          {cart.length === 0 ? (
-            <div className="text-center py-10">
-              <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-gray-500 mb-4">Seu carrinho esta vazio.</p>
-              <Button onClick={() => navigate("/")}>Voltar para a loja</Button>
-            </div>
-          ) : (
-            <>
-              <div className="mb-4 flex items-center justify-between">
-                <div className="text-sm text-muted-foreground">
-                  Total de itens: {totalItems}
-                </div>
-              </div>
-
-              <div className="border rounded-lg overflow-hidden">
-                <div className="bg-muted px-4 py-3 border-b">
-                  <h2 className="font-semibold">Resumo do Pedido</h2>
-                </div>
-                <div className="divide-y">
-                  {cart.map((item) => {
-                    const product = mockProducts.find((p) => p.id === item.id);
-                    if (!product) return null;
-
-                    return (
-                      <div
-                        key={item.id}
-                        className="p-4 flex items-center justify-between"
-                      >
-                        <div>
-                          <div className="font-semibold">{product.name}</div>
-                          <div className="text-sm text-muted-foreground">
-                            R${" "}
-                            {parsePrice(product.price)
-                              .toFixed(2)
-                              .replace(".", ",")}{" "}
-                            x {item.clickCount}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="font-semibold">
-                            R${" "}
-                            {(parsePrice(product.price) * item.clickCount)
-                              .toFixed(2)
-                              .replace(".", ",")}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="bg-muted px-4 py-3 border-t">
-                  <div className="flex justify-between items-center">
-                    <span className="font-bold">Total:</span>
-                    <span className="font-bold text-lg">
-                      R$ {totalPrice.toFixed(2).replace(".", ",")}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <Button
-                className="w-full mt-6"
-                size="lg"
-                onClick={handleWhatsAppOrder}
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Enviar via WhatsApp
-              </Button>
-
-              <p className="text-sm text-muted-foreground text-center mt-4">
-                Clique no botao acima para enviar seu pedido via WhatsApp
+          {/* Date & Time */}
+          <div className="bg-muted rounded-lg p-4 mb-6 flex justify-between items-center">
+            <div>
+              <p className="text-sm text-muted-foreground">Data do pedido</p>
+              <p className="font-semibold">
+                {orderDate.toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
               </p>
-            </>
-          )}
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Horário</p>
+              <p className="font-semibold">
+                {orderDate.toLocaleTimeString("pt-BR", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
+          </div>
+
+          {/* Items */}
+          <div className="border rounded-lg overflow-hidden mb-6">
+            <div className="bg-muted px-4 py-3 border-b">
+              <h2 className="font-semibold">Itens do Pedido ({order.items.length})</h2>
+            </div>
+            <div className="divide-y">
+              {order.items.map((item, idx) => {
+                const product = mockProducts.find((p) => p.id === item.productId);
+                return (
+                  <div key={idx} className="p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      {product?.image && (
+                        <img
+                          src={product.image}
+                          alt={product?.name}
+                          className="w-12 h-12 object-contain rounded"
+                        />
+                      )}
+                      <div>
+                        <p className="font-semibold">{product?.name ?? "Produto"}</p>
+                        <p className="text-sm text-muted-foreground">
+                          R$ {item.priceAtPurchase.toFixed(2).replace(".", ",")} × {item.quantity}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="font-semibold">
+                      R$ {(item.priceAtPurchase * item.quantity).toFixed(2).replace(".", ",")}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            <Separator />
+            <div className="px-4 py-4 flex justify-between items-center bg-muted">
+              <span className="font-bold text-lg">Total</span>
+              <span className="font-bold text-lg">
+                R$ {order.total.toFixed(2).replace(".", ",")}
+              </span>
+            </div>
+          </div>
+
+          <Button className="w-full" onClick={() => navigate("/")}>
+            Continuar Comprando
+          </Button>
         </div>
       </main>
-      <div className="bottom-0 w-full">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
