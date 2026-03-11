@@ -68,20 +68,35 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const formatCpf = (value: string) => {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    return digits
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
-    const success = await register(name, email, password, address);
+    const result = await register(name, email, password, address, cpf);
 
-    if (success) {
+    if (result.success) {
       toast({
         title: "Conta criada com sucesso!",
         description: `Bem-vindo, ${name}!`,
         duration: 3000,
       });
       navigate("/account");
+    } else if (result.error === "cpf") {
+      toast({
+        variant: "destructive",
+        title: "CPF já cadastrado",
+        description: "Já existe uma conta com este CPF. Faça login ou use outro CPF.",
+        duration: 5000,
+      });
     } else {
       toast({
         variant: "destructive",
