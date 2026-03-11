@@ -130,30 +130,16 @@ export const ProductList = ({
               {product.description}
             </p>
 
-            <div className="flex items-center justify-between">
-              <span className="font-bold text-primary text-lg">
-                {product.price}
-              </span>
-              <Button
-                size="sm"
-                variant={product.inStock ? "default" : "secondary"}
-                disabled={!product.inStock}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  // Add to cart
-                  addToCart(product.id);
-
-                  // Show toast notification
-                  toast({
-                    title: "Sucesso!",
-                    description: "Produto adicionado!",
-                    duration: 3000,
-                  });
-                }}
-              >
-                {product.inStock ? "Adicionar" : "Indisponível"}
-              </Button>
-            </div>
+            <Button
+              size="sm"
+              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleProductClick(product);
+              }}
+            >
+              Ver Produto
+            </Button>
           </CardContent>
         </Card>
       ))}
