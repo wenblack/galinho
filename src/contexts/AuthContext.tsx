@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { User, AuthContextType } from "@/types/user";
-import { mockUsers, emailExists } from "@/data/users";
+import { mockUsers, emailExists, cpfExists } from "@/data/users";
 
 const AUTH_STORAGE_KEY = "galinho_auth";
 
@@ -71,35 +71,36 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     email: string,
     password: string,
     address?: string,
-  ): Promise<boolean> => {
+    cpf?: string,
+  ): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
 
-    // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // Check if email already exists
     if (emailExists(email)) {
       setIsLoading(false);
-      return false;
+      return { success: false, error: "email" };
     }
 
-    // Create new user
+    if (cpf && cpfExists(cpf)) {
+      setIsLoading(false);
+      return { success: false, error: "cpf" };
+    }
+
     const newUser: User = {
       id: mockUsers.length + 1,
       name,
       email,
       password,
       address,
+      cpf,
       createdAt: new Date(),
     };
 
-    // Add to mock users (in real app, this would be an API call)
     mockUsers.push(newUser);
-
-    // Auto-login after registration
     setUser(newUser);
     setIsLoading(false);
-    return true;
+    return { success: true };
   };
 
   const updateUser = async (

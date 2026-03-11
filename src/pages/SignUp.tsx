@@ -27,12 +27,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [cpf, setCpf] = useState("");
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
     password?: string;
     confirmPassword?: string;
     address?: string;
+    cpf?: string;
   }>({});
 
   const validateForm = () => {
@@ -66,20 +68,35 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const formatCpf = (value: string) => {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    return digits
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
-    const success = await register(name, email, password, address);
+    const result = await register(name, email, password, address, cpf);
 
-    if (success) {
+    if (result.success) {
       toast({
         title: "Conta criada com sucesso!",
         description: `Bem-vindo, ${name}!`,
         duration: 3000,
       });
       navigate("/account");
+    } else if (result.error === "cpf") {
+      toast({
+        variant: "destructive",
+        title: "CPF já cadastrado",
+        description: "Já existe uma conta com este CPF. Faça login ou use outro CPF.",
+        duration: 5000,
+      });
     } else {
       toast({
         variant: "destructive",
@@ -172,6 +189,22 @@ const SignUp = () => {
               </div>
 
               <div className="space-y-2">
+                <Label htmlFor="cpf">CPF</Label>
+                <Input
+                  id="cpf"
+                  type="text"
+                  placeholder="000.000.000-00"
+                  value={cpf}
+                  onChange={(e) => setCpf(formatCpf(e.target.value))}
+                  disabled={isLoading}
+                  maxLength={14}
+                />
+                {errors.cpf && (
+                  <p className="text-sm text-destructive">{errors.cpf}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="address">Endereço</Label>
                 <Input
                   id="address"
@@ -182,7 +215,7 @@ const SignUp = () => {
                   disabled={isLoading}
                 />
                 {errors.address && (
-                  <p className="text-sm text-red-500">{errors.address}</p>
+                  <p className="text-sm text-destructive">{errors.address}</p>
                 )}
               </div>
             </CardContent>

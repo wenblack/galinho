@@ -36,3 +36,11 @@ export const emailExists = (email: string): boolean => {
   );
 };
 
+// Helper function to check if CPF already exists
+export const cpfExists = (cpf: string): boolean => {
+  const cleanCpf = cpf.replace(/\D/g, "");
+  return mockUsers.some(
+    (user) => user.cpf && user.cpf.replace(/\D/g, "") === cleanCpf
+  );
+};
+
