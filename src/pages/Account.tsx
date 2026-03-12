@@ -407,10 +407,11 @@ const Account = () => {
                               {totalItems} {totalItems === 1 ? "item" : "itens"}
                             </p>
                           </div>
-                          <div className="text-right">
+                          <div className="text-right flex flex-col items-end gap-1">
                             <p className="font-bold">
                               R$ {order.total.toFixed(2).replace(".", ",")}
                             </p>
+                            <Badge variant="outline" className="text-[10px]">{order.status}</Badge>
                             <p className="text-xs text-secondary font-medium">Ver detalhes →</p>
                           </div>
                         </div>
