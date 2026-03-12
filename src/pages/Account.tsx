@@ -323,6 +323,20 @@ const Account = () => {
                   Meu Carrinho
                 </Button>
 
+                {user?.isAdmin && (
+                  <>
+                    <Separator className="my-4" />
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start"
+                      onClick={() => navigate("/admin")}
+                    >
+                      <ShieldCheck className="w-4 h-4 mr-2" />
+                      Painel Administrativo
+                    </Button>
+                  </>
+                )}
+
                 <Separator className="my-4" />
 
                 <Button
