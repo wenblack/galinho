@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Order, OrderItem } from "@/types/order";
+import { Order, OrderItem, OrderStatus, OrderObservation } from "@/types/order";
 
 const ORDER_STORAGE_KEY = "galinho_orders";
 
@@ -8,6 +8,8 @@ interface OrderContextType {
   createOrder: (userId: number, items: OrderItem[], total: number) => Order;
   getOrderById: (id: string) => Order | undefined;
   getOrdersByUser: (userId: number) => Order[];
+  updateOrderStatus: (id: string, status: OrderStatus) => void;
+  updateOrderObservation: (id: string, observation: OrderObservation) => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
