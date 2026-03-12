@@ -31,6 +31,7 @@ import {
   Save,
   X,
   MapPin,
+  ShieldCheck,
 } from "lucide-react";
 
 const Account = () => {
