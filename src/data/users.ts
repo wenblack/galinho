@@ -9,6 +9,7 @@ export const mockUsers: User[] = [
     password: "123456",
     phone: "(11) 99999-9999",
     cpf: "123.456.789-00",
+    isAdmin: false,
     createdAt: new Date("2024-01-15"),
   },
   {
@@ -18,7 +19,18 @@ export const mockUsers: User[] = [
     password: "senha123",
     phone: "(11) 88888-8888",
     cpf: "987.654.321-00",
+    isAdmin: false,
     createdAt: new Date("2024-02-20"),
+  },
+  {
+    id: 99,
+    name: "Admin Galinho",
+    email: "admin@galinho.com.br",
+    password: "admin123",
+    phone: "(11) 77777-7777",
+    cpf: "000.000.000-00",
+    isAdmin: true,
+    createdAt: new Date("2024-01-01"),
   },
 ];
 

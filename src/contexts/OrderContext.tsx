@@ -38,6 +38,8 @@ export const OrderContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
       userId,
       items,
       total,
+      status: "Pedido realizado",
+      observation: "",
       createdAt: new Date(),
     };
     setOrders((prev) => [order, ...prev]);
@@ -48,8 +50,16 @@ export const OrderContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const getOrdersByUser = (userId: number) => orders.filter((o) => o.userId === userId);
 
+  const updateOrderStatus = (id: string, status: OrderStatus) => {
+    setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)));
+  };
+
+  const updateOrderObservation = (id: string, observation: OrderObservation) => {
+    setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, observation } : o)));
+  };
+
   return (
-    <OrderContext.Provider value={{ orders, createOrder, getOrderById, getOrdersByUser }}>
+    <OrderContext.Provider value={{ orders, createOrder, getOrderById, getOrdersByUser, updateOrderStatus, updateOrderObservation }}>
       {children}
     </OrderContext.Provider>
   );

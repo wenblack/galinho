@@ -6,6 +6,7 @@ export interface User {
   address?: string;
   phone?: string;
   cpf?: string;
+  isAdmin?: boolean;
   createdAt: Date;
 }
 

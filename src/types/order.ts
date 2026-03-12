@@ -1,3 +1,6 @@
+export type OrderStatus = "Pedido realizado" | "Pedido confirmado" | "Pedido finalizado";
+export type OrderObservation = "" | "Em separação" | "Em rota de entrega" | "Entregue";
+
 export interface OrderItem {
   productId: number;
   quantity: number;
@@ -9,5 +12,7 @@ export interface Order {
   userId: number;
   items: OrderItem[];
   total: number;
+  status: OrderStatus;
+  observation: OrderObservation;
   createdAt: Date;
 }
