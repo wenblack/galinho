@@ -14,6 +14,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account";
 import Order from "./pages/Order";
+import Admin from "./pages/Admin";
 
 import Contato from "./pages/Contato";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/signup" element={<SignUp />} />
           <Route path="/account" element={<Account />} />
           <Route path="/order/:id" element={<Order />} />
+          <Route path="/admin" element={<Admin />} />
 
           <Route path="/contato" element={<Contato />} />
           <Route path="/nossa-historia" element={<NossaHistoria />} />

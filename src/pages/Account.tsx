@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -30,6 +31,7 @@ import {
   Save,
   X,
   MapPin,
+  ShieldCheck,
 } from "lucide-react";
 
 const Account = () => {
@@ -321,6 +323,20 @@ const Account = () => {
                   Meu Carrinho
                 </Button>
 
+                {user?.isAdmin && (
+                  <>
+                    <Separator className="my-4" />
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start"
+                      onClick={() => navigate("/admin")}
+                    >
+                      <ShieldCheck className="w-4 h-4 mr-2" />
+                      Painel Administrativo
+                    </Button>
+                  </>
+                )}
+
                 <Separator className="my-4" />
 
                 <Button
@@ -391,10 +407,11 @@ const Account = () => {
                               {totalItems} {totalItems === 1 ? "item" : "itens"}
                             </p>
                           </div>
-                          <div className="text-right">
+                          <div className="text-right flex flex-col items-end gap-1">
                             <p className="font-bold">
                               R$ {order.total.toFixed(2).replace(".", ",")}
                             </p>
+                            <Badge variant="outline" className="text-[10px]">{order.status}</Badge>
                             <p className="text-xs text-secondary font-medium">Ver detalhes →</p>
                           </div>
                         </div>
